@@ -23,6 +23,11 @@ namespace Containerschip
                 Shiploader loader = new Shiploader(ship, containers);
             }
 
+            Console.WriteLine();
+            Console.WriteLine("Out");
+            Console.WriteLine();
+            Console.WriteLine(ship);
+
             Console.ReadLine();
         }
     }
