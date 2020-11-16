@@ -6,7 +6,7 @@ namespace Containerschip
 {
     public class Shiploader
     {
-        public Ship Ship;
+        private Ship Ship;
         private readonly List<Container> unOrderdContainers;
         private List<Container> orderdContainers = new List<Container>();
 
@@ -26,7 +26,7 @@ namespace Containerschip
 
             foreach (var container in unOrderdContainers)
             {
-                if (container.Type == ContainerType.Valuable || container.Type == ContainerType.Valuable_Coolable)
+                if (container.Type == ContainerType.Valuable)
                 {
                     Valuable.Add(container);
                 }
@@ -42,12 +42,32 @@ namespace Containerschip
                 {
                     Normal.Add(container);
                 }
-                Console.WriteLine(container.Type.ToString() + " Gesorteerd");
+                Console.WriteLine(container + " Gesorteerd");
             }
             Valuable.OrderByDescending(t => t.Weight);
             Coolable.OrderByDescending(t => t.Weight);
             Valuable_Coolable.OrderBy(t => t.Weight);
             Normal.OrderByDescending(t => t.Weight);
+
+            AddContainersToShip(Valuable_Coolable);
+            AddContainersToShip(Valuable);
+            AddContainersToShip(Coolable);
+            AddContainersToShip(Normal);
+        }
+
+        private void AddContainersToShip(List<Container> containers)
+        {
+            foreach (var container in containers)
+            {
+                if (Ship.AddContainer(container))
+                {
+                    Console.WriteLine(container + " Geplaatst op schip");
+                }
+                else
+                {
+                    Console.WriteLine("Container "+ container +"kon niet worden geplaatst.");
+                }
+            }
         }
     }
 }
