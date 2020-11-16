@@ -8,11 +8,11 @@ namespace Containerschip
     {
         private List<Stack> stacks { get; set; }
         private int _length;
-        public int totalWeight => stacks.Sum(t => t.totalWeight);
+        public int TotalWeight => stacks.Sum(t => t.totalWeight);
 
         public Column(int length)
         {
-            this._length = length;
+            _length = length;
             stacks = new List<Stack>();
             for (int i = 0; i < length; i++)
             {
@@ -51,7 +51,7 @@ namespace Containerschip
                 amountStacks++;
             }
 
-            result += "=== total columnweight: " + totalWeight + " ton \n\n";
+            result += "=== total columnweight: " + TotalWeight + " ton \n\n";
             return result;
         }
     }

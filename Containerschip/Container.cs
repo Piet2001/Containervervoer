@@ -13,18 +13,18 @@ namespace Containerschip
 
         public Container(ContainerType type, int weight)
         {
-            this.Type = type;
+            Type = type;
             if (weight < minWeight)
             {
-                this.Weight = minWeight;
+                Weight = minWeight;
             }
             else if(weight>maxWeight)
             {
-                this.Weight = maxWeight;
+                Weight = maxWeight;
             }
             else
             {
-                this.Weight = weight;
+                Weight = weight;
             }
         }
 

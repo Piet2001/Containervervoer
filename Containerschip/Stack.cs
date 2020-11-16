@@ -6,7 +6,7 @@ namespace Containerschip
     public class Stack
     {
         private const int maxStackWeight = 120;
-        public List<Container> containersInStack { get; }
+        private List<Container> containersInStack { get; }
         private bool first;
         private bool last;
 
@@ -22,33 +22,21 @@ namespace Containerschip
 
         private bool IsStackSafe()
         {
-            if (totalWeight > maxStackWeight)
-            {
-                return false;
-            }
-
-            return true;
+            return totalWeight <= maxStackWeight;
         }
 
         private bool wightAccept(Container container)
         {
             int newWight = totalWeight + container.Weight;
-            if (newWight < maxStackWeight)
-            {
-                containersInStack.Add(container);
-                return true;
-            }
+            if (newWight >= maxStackWeight) return false;
+            containersInStack.Add(container);
+            return true;
 
-            return false;
         }
 
         public bool ValuablePlaceAvailable()
         {
-            if (containersInStack.Any(t => t.Type == ContainerType.Valuable || t.Type == ContainerType.Valuable_Coolable))
-            {
-                return false;
-            }
-            return true;
+            return !containersInStack.Any(t => t.Type == ContainerType.Valuable || t.Type == ContainerType.Valuable_Coolable);
         }
 
         public bool TryToAdd(Container container)
