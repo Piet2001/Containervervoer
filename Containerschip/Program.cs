@@ -66,7 +66,7 @@ namespace Containerschip
 
             Ship ship = new Ship(4, 3, 1080);
 
-            if (!ship.CheckMinWeight(containers) && ship.CheckMaxWeight(containers))
+            if (ship.CheckMinWeight(containers) && ship.CheckMaxWeight(containers))
             {
                 Shiploader loader = new Shiploader(ship, containers);
 

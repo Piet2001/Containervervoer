@@ -43,7 +43,7 @@ namespace Containerschip
 
         public bool CheckMinWeight(List<Container> containers)
         {
-            if (containers.Sum(t => t.Weight) > maxWeight)
+            if (containers.Sum(t => t.Weight) < minWeight)
             {
                 return false;
             }
