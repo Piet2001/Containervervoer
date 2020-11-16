@@ -7,16 +7,12 @@ namespace Containerschip
     public class Ship
     {
         private List<Column> columns;
-        private int length;
-        private int width;
         private int maxWeight;
         private int minWeight;
-        public int totalWeight => columns.Sum(t => t.totalWeight);
+        private int totalWeight => columns.Sum(t => t.TotalWeight);
 
         public Ship(int length, int width, int maxWeight)
         {
-            this.length = length;
-            this.width = width;
             this.maxWeight = maxWeight;
             minWeight = maxWeight / 2;
 
@@ -33,22 +29,12 @@ namespace Containerschip
 
         public bool CheckMaxWeight(List<Container> containers)
         {
-            if (containers.Sum(t => t.Weight) > maxWeight)
-            {
-                return false;
-            }
-
-            return true;
+            return containers.Sum(t => t.Weight) <= maxWeight;
         }
 
         public bool CheckMinWeight(List<Container> containers)
         {
-            if (containers.Sum(t => t.Weight) < minWeight)
-            {
-                return false;
-            }
-
-            return true;
+            return containers.Sum(t => t.Weight) >= minWeight;
         }
 
         public bool AddContainer(Container container)
@@ -98,7 +84,7 @@ namespace Containerschip
 
             for (int i = 0; i < leftColumns; i++)
             {
-                weight += columns[i].totalWeight;
+                weight += columns[i].TotalWeight;
             }
 
             return weight;
@@ -119,7 +105,7 @@ namespace Containerschip
 
             for (int i = min; i < columns.Count; i++)
             {
-                weight += columns[i].totalWeight;
+                weight += columns[i].TotalWeight;
             }
 
             return weight;
