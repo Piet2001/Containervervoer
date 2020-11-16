@@ -28,5 +28,10 @@ namespace Containerschip
             }
         }
 
+        public override string ToString()
+        {
+            string result = Type.ToString() + " (" + Weight.ToString() + ")";
+            return result;
+        }
     }
 }

@@ -42,30 +42,30 @@ namespace Containerschip
                 {
                     Normal.Add(container);
                 }
-                Console.WriteLine(container.Type.ToString() + " Gesorteerd");
+                Console.WriteLine(container + " Gesorteerd");
             }
             Valuable.OrderByDescending(t => t.Weight);
             Coolable.OrderByDescending(t => t.Weight);
             Valuable_Coolable.OrderBy(t => t.Weight);
             Normal.OrderByDescending(t => t.Weight);
 
-            addContainersToShip(Coolable);
-            addContainersToShip(Valuable_Coolable);
-            addContainersToShip(Valuable);
-            addContainersToShip(Normal);
+            AddContainersToShip(Valuable_Coolable);
+            AddContainersToShip(Valuable);
+            AddContainersToShip(Coolable);
+            AddContainersToShip(Normal);
         }
 
-        private void addContainersToShip(List<Container> containers)
+        private void AddContainersToShip(List<Container> containers)
         {
             foreach (var container in containers)
             {
                 if (Ship.AddContainer(container))
                 {
-                    Console.WriteLine(container.Type.ToString());
+                    Console.WriteLine(container + " Geplaatst op schip");
                 }
                 else
                 {
-                    Console.WriteLine("Container kon niet worden geplaatst.");
+                    Console.WriteLine("Container "+ container +"kon niet worden geplaatst.");
                 }
             }
         }

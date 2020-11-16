@@ -11,6 +11,7 @@ namespace Containerschip
         private int width;
         private int maxWeight;
         private int minWeight;
+        public int totalWeight => columns.Sum(t => t.totalWeight);
 
         public Ship(int length, int width, int maxWeight)
         {
@@ -52,9 +53,32 @@ namespace Containerschip
 
         public bool AddContainer(Container container)
         {
-            foreach (var column in columns)
+            int startPosition = 0;
+            int columnsLeftRight;
+            if (columns.Count % 2 == 0)
             {
-                if (column.TryAdd(container)) return true;
+                columnsLeftRight = columns.Count / 2;
+            }
+            else
+            {
+                columnsLeftRight = (int)Math.Floor(columns.Count / 2.0);
+            }
+
+            if (LeftWeight() > RightWeight())
+            {
+                startPosition = columns.Count - 1;
+
+                for (int x = startPosition; x >= columnsLeftRight; x--)
+                {
+                    if (columns[x].TryAdd(container)) return true;
+                }
+            }
+            else
+            {
+                for (int x = startPosition; x <= columnsLeftRight; x++)
+                {
+                    if (columns[x].TryAdd(container)) return true;
+                }
             }
             return false;
         }
@@ -107,11 +131,12 @@ namespace Containerschip
             int amountColumns = 1;
             foreach (var column in columns)
             {
-                result += "Column " + amountColumns + ": \n";
+                result += "Column " + amountColumns + ": \n\n";
                 result += column;
                 amountColumns++;
             }
 
+            result += "\nWeight_left: " + LeftWeight() + "\nWeight_right: " + RightWeight() + "\nTotal ship weight: " + totalWeight +"/" + maxWeight;
             return result;
         }
     }

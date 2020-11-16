@@ -18,6 +18,7 @@ namespace Containerschip
         }
 
         public int totalWeight => containersInStack.Sum(t => t.Weight);
+        // public bool containersInStack.Any(vleeseter => dier.Grootte <= vleeseter.Grootte
 
         private bool IsStackSafe()
         {
@@ -39,6 +40,15 @@ namespace Containerschip
             }
 
             return false;
+        }
+
+        public bool ValuablePlaceAvailable()
+        {
+            if (containersInStack.Any(t => t.Type == ContainerType.Valuable || t.Type == ContainerType.Valuable_Coolable))
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool TryToAdd(Container container)
@@ -85,10 +95,10 @@ namespace Containerschip
             foreach (var container in containersInStack)
             {
                 result += "container " + amountContainers + ": ";
-                result += container.Type.ToString() + container.Weight + "\n";
+                result += container + "\n";
                 amountContainers++;
             }
-
+            result += "== Total stack weight: " + totalWeight + " ton \n";
             return result;
         }
     }

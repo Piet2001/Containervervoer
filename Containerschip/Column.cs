@@ -27,6 +27,14 @@ namespace Containerschip
         {
             for (int i = 0; i < _length; i++)
             {
+                if (container.Type == ContainerType.Valuable || container.Type == ContainerType.Valuable_Coolable)
+                {
+                    if (stacks[i].ValuablePlaceAvailable())
+                    {
+                        if (stacks[i].TryToAdd(container)) return true;
+                    }
+                    continue;
+                }
                 if (stacks[i].TryToAdd(container)) return true;
             }
             return false;
@@ -43,7 +51,7 @@ namespace Containerschip
                 amountStacks++;
             }
 
-
+            result += "=== total columnweight: " + totalWeight + " ton \n\n";
             return result;
         }
     }
