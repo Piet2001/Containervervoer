@@ -27,6 +27,11 @@ namespace Containerschip
             }
         }
 
+        public int getTotalWeight()
+        {
+            return totalWeight;
+        }
+
         public bool CheckMaxWeight(List<Container> containers)
         {
             return containers.Sum(t => t.Weight) <= maxWeight;
