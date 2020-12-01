@@ -18,14 +18,8 @@ namespace Containerschip
         }
 
         public int totalWeight => containersInStack.Sum(t => t.Weight);
-        // public bool containersInStack.Any(vleeseter => dier.Grootte <= vleeseter.Grootte
 
-        private bool IsStackSafe()
-        {
-            return totalWeight <= maxStackWeight;
-        }
-
-        private bool wightAccept(Container container)
+        private bool WightAccept(Container container)
         {
             int newWight = totalWeight + container.Weight;
             if (newWight >= maxStackWeight) return false;
@@ -45,7 +39,7 @@ namespace Containerschip
 
             if (container.Type == ContainerType.Coolable && first)
             {
-                if (wightAccept(container))
+                if (WightAccept(container))
                 {
                     return true;
                 }
@@ -55,21 +49,21 @@ namespace Containerschip
 
             if (container.Type == ContainerType.Valuable_Coolable && first)
             {
-                if (wightAccept(container)) return true;
+                if (WightAccept(container)) return true;
  
                 return false;
             }
 
             if (container.Type == ContainerType.Valuable && (first || last))
             {
-                if (wightAccept(container)) return true;
+                if (WightAccept(container)) return true;
 
                 return false;
             }
 
             if (container.Type == ContainerType.Normal)
             {
-                if (wightAccept(container)) return true;
+                if (WightAccept(container)) return true;
 
                 return false;
             }
