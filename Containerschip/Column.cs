@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 
 namespace Containerschip
 {
-    class Column
+    public class Column
     {
-        private List<Stack> stacks { get; set; }
+        private List<Stack> stacks;
         private int _length;
         public int TotalWeight => stacks.Sum(t => t.totalWeight);
 

@@ -27,6 +27,11 @@ namespace Containerschip
             }
         }
 
+        public int getTotalWeight()
+        {
+            return totalWeight;
+        }
+
         public bool CheckMaxWeight(List<Container> containers)
         {
             return containers.Sum(t => t.Weight) <= maxWeight;
@@ -122,7 +127,7 @@ namespace Containerschip
                 amountColumns++;
             }
 
-            result += "\nWeight_left: " + LeftWeight() + "\nWeight_right: " + RightWeight() + "\nTotal ship weight: " + totalWeight +"/" + maxWeight;
+            result += "\nWeight_left: " + LeftWeight() + "\nWeight_right: " + RightWeight() + "\nTotal ship weight: " + totalWeight + "/" + maxWeight;
             return result;
         }
     }
