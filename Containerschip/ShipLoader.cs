@@ -19,31 +19,15 @@ namespace Containerschip
 
         private void OrderContainers()
         {
-            List<Container> Valuable = new List<Container>();
-            List<Container> Valuable_Coolable = new List<Container>();
-            List<Container> Coolable = new List<Container>();
-            List<Container> Normal = new List<Container>();
+            List<Container> Valuable = unOrderdContainers.Where(container => container.Type == ContainerType.Valuable)
+                .ToList();
+            List<Container> Valuable_Coolable = unOrderdContainers.Where(container => container.Type == ContainerType.Valuable_Coolable)
+                .ToList();
+            List<Container> Coolable = unOrderdContainers.Where(container => container.Type == ContainerType.Coolable)
+                .ToList(); ;
+            List<Container> Normal = unOrderdContainers.Where(container => container.Type == ContainerType.Normal)
+                .ToList();
 
-            foreach (var container in unOrderdContainers)
-            {
-                if (container.Type == ContainerType.Valuable)
-                {
-                    Valuable.Add(container);
-                }
-                if (container.Type == ContainerType.Coolable)
-                {
-                    Coolable.Add(container);
-                }
-                if (container.Type == ContainerType.Valuable_Coolable)
-                {
-                    Valuable_Coolable.Add(container);
-                }
-                if (container.Type == ContainerType.Normal)
-                {
-                    Normal.Add(container);
-                }
-                Console.WriteLine(container + " Gesorteerd");
-            }
             Valuable.OrderByDescending(t => t.Weight);
             Coolable.OrderByDescending(t => t.Weight);
             Valuable_Coolable.OrderBy(t => t.Weight);

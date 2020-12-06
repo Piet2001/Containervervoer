@@ -10,6 +10,7 @@ namespace Containerschip
         private int maxWeight;
         private int minWeight;
         private int totalWeight => columns.Sum(t => t.TotalWeight);
+        private int OneSideColumns;
 
         public Ship(int length, int width, int maxWeight)
         {
@@ -24,6 +25,15 @@ namespace Containerschip
                 bool last = (i == width - 1);
 
                 columns.Add(new Column(length));
+            }
+
+            if (columns.Count % 2 == 0)
+            {
+                OneSideColumns = columns.Count / 2;
+            }
+            else
+            {
+                OneSideColumns = (int)Math.Floor(columns.Count / 2.0);
             }
         }
 
@@ -45,28 +55,19 @@ namespace Containerschip
         public bool AddContainer(Container container)
         {
             int startPosition = 0;
-            int columnsLeftRight;
-            if (columns.Count % 2 == 0)
-            {
-                columnsLeftRight = columns.Count / 2;
-            }
-            else
-            {
-                columnsLeftRight = (int)Math.Floor(columns.Count / 2.0);
-            }
 
             if (LeftWeight() > RightWeight())
             {
                 startPosition = columns.Count - 1;
 
-                for (int x = startPosition; x >= columnsLeftRight; x--)
+                for (int x = startPosition; x >= OneSideColumns; x--)
                 {
                     if (columns[x].TryAdd(container)) return true;
                 }
             }
             else
             {
-                for (int x = startPosition; x <= columnsLeftRight; x++)
+                for (int x = startPosition; x <= OneSideColumns; x++)
                 {
                     if (columns[x].TryAdd(container)) return true;
                 }
@@ -77,17 +78,8 @@ namespace Containerschip
         private int LeftWeight()
         {
             int weight = 0;
-            int leftColumns;
-            if (columns.Count % 2 == 0)
-            {
-                leftColumns = columns.Count / 2;
-            }
-            else
-            {
-                leftColumns = (int) Math.Floor(columns.Count / 2.0);
-            }
 
-            for (int i = 0; i < leftColumns; i++)
+            for (int i = 0; i < OneSideColumns; i++)
             {
                 weight += columns[i].TotalWeight;
             }
@@ -98,17 +90,8 @@ namespace Containerschip
         private int RightWeight()
         {
             int weight = 0;
-            int min;
-            if (columns.Count % 2 ==0)
-            {
-                min = (int) (columns.Count / 2);
-            }
-            else
-            {
-                min = (int) Math.Ceiling(columns.Count / 2.0);
-            }
 
-            for (int i = min; i < columns.Count; i++)
+            for (int i = OneSideColumns; i < columns.Count; i++)
             {
                 weight += columns[i].TotalWeight;
             }
